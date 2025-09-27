@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Create New Student</title>
+    <title>Login - Student Records Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -86,15 +86,18 @@
             background: rgba(255, 255, 255, 0.95);
         }
         
+        /* Hide browser's built-in password reveal icon */
         input[type="password"]::-ms-reveal,
         input[type="password"]::-ms-clear {
             display: none;
         }
-
+        
+        /* Hide WebKit password reveal icon */
         input[type="password"]::-webkit-credentials-auto-fill-button {
             display: none !important;
         }
-
+        
+        /* Additional fix for Chrome's password reveal */
         input[type="password"]::-webkit-textfield-decoration-container {
             display: none;
         }
@@ -134,6 +137,18 @@
             border-radius: 10px;
         }
         
+        .login-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(26, 42, 108, 0.3);
+        }
+        
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-6 relative">
@@ -147,11 +162,11 @@
         <header class="flex flex-col md:flex-row justify-between items-center gap-6 py-4 mb-8">
             <div class="flex items-center gap-4">
                 <div class="p-3 rounded-full bg-white bg-opacity-20">
-                    <i class="fas fa-user-plus text-3xl text-white"></i>
+                    <i class="fas fa-sign-in-alt text-3xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">Add New Student</h1>
-                    <p class="text-white text-opacity-80">Create a new student record</p>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">User Login</h1>
+                    <p class="text-white text-opacity-80">Access your student records account</p>
                 </div>
             </div>
             
@@ -166,10 +181,10 @@
         <section class="form-container p-0 overflow-hidden">
             <div class="header-gradient text-white p-6">
                 <h2 class="text-xl md:text-2xl font-semibold flex items-center gap-2">
-                    <i class="fas fa-user-graduate"></i>
-                    Student Information
+                    <i class="fas fa-user-lock"></i>
+                    Login Credentials
                 </h2>
-                <p class="text-white text-opacity-90 mt-1">Fill in the details to create a new student record</p>
+                <p class="text-white text-opacity-90 mt-1">Enter your credentials to access the system</p>
             </div>
             
             <div class="p-6 md:p-8">
@@ -177,98 +192,79 @@
                 <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-center gap-3">
                     <i class="fas fa-exclamation-triangle text-xl"></i>
                     <div>
-                        <p class="font-semibold">Registration Error</p>
+                        <p class="font-semibold">Login Error</p>
                         <p class="text-sm"><?= html_escape($error) ?></p>
                     </div>
                 </div>
                 <?php endif; ?>
                 
-                <form action="<?=site_url('students/create');?>" method="POST" class="space-y-6" novalidate>
+                <form action="<?=site_url('students/login');?>" method="POST" class="space-y-6" novalidate>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- Image Container -->
                         <div class="lg:col-span-1 image-container">
-                            <img src="https://i.pinimg.com/1200x/88/6d/ff/886dff1c67cea91cc2961efb267998cb.jpg" 
-                                 alt="Student Profile" class="profile-image">
+                            <div class="login-icon">
+                                <i class="fas fa-user text-4xl text-white"></i>
+                            </div>
+                            <div class="text-center text-white">
+                                <h3 class="text-xl font-semibold mb-2">Welcome Back!</h3>
+                                <p class="text-white text-opacity-80">Sign in to continue managing student records</p>
+                            </div>
                         </div>
                         
                         <!-- Form Fields Column -->
                         <div class="lg:col-span-2 space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                        <i class="fas fa-user text-blue-500"></i>
-                                        First Name
-                                    </label>
-                                    <input type="text" name="first_name" placeholder="Enter first name" required
-                                        class="w-full px-4 py-3 rounded-xl form-input focus:outline-none" />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                        <i class="fas fa-user text-blue-500"></i>
-                                        Last Name
-                                    </label>
-                                    <input type="text" name="last_name" placeholder="Enter last name" required
-                                        class="w-full px-4 py-3 rounded-xl form-input focus:outline-none" />
-                                </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                                    <i class="fas fa-envelope text-blue-500"></i>
+                                    Email Address
+                                </label>
+                                <input type="email" name="email" placeholder="Enter your email address" required
+                                    class="w-full px-4 py-3 rounded-xl form-input focus:outline-none" />
                             </div>
 
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                    <i class="fas fa-envelope text-red-500"></i>
-                                    Email Address
+                                    <i class="fas fa-lock text-red-500"></i>
+                                    Password
                                 </label>
-                                <input type="email" name="email" placeholder="student@example.com" required
-                                    class="w-full px-4 py-3 rounded-xl form-input focus:outline-none" />
+                                <div class="relative">
+                                    <input type="password" name="password" id="password" placeholder="Enter your password" required
+                                        class="w-full px-4 py-3 pr-12 rounded-xl form-input focus:outline-none" />
+                                    <button type="button" onclick="togglePassword()" 
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none text-lg font-bold">
+                                        <span id="password-toggle">👁️</span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                        <i class="fas fa-lock text-green-500"></i>
-                                        Password
-                                    </label>
-                                    <div class="relative">
-                                        <input type="password" name="password" id="password" placeholder="Enter password" required
-                                            class="w-full px-4 py-3 pr-12 rounded-xl form-input focus:outline-none" />
-                                        <button type="button" onclick="togglePassword('password')" 
-                                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none text-lg font-bold">
-                                            <span id="password-toggle">👁️</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                        <i class="fas fa-lock text-green-500"></i>
-                                        Confirm Password
-                                    </label>
-                                    <div class="relative">
-                                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" required
-                                            class="w-full px-4 py-3 pr-12 rounded-xl form-input focus:outline-none" />
-                                        <button type="button" onclick="togglePassword('confirm_password')" 
-                                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none text-lg font-bold">
-                                            <span id="confirm_password-toggle">👁️</span>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center gap-2 text-sm text-gray-600">
+                                    <input type="checkbox" name="remember" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <span>Remember me</span>
+                                </label>
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+                                    Forgot password?
+                                </a>
                             </div>
 
                             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-200">
                                 <button type="reset" 
                                     class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl btn-secondary text-white font-semibold">
                                     <i class="fas fa-redo"></i>
-                                    Reset Form
+                                    Clear Form
                                 </button>
                                 <button type="submit"
                                     class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl btn-primary text-white font-semibold shadow-lg">
-                                    <i class="fas fa-user-plus"></i>
-                                    Create Student
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Login to System
                                 </button>
                             </div>
+
                             <div class="text-center pt-4 border-t border-gray-200">
                                 <p class="text-gray-600 text-sm">
-                                    Already have an account? 
-                                    <a href="<?=site_url('students/login');?>" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
-                                        Login here
+                                    Don't have an account? 
+                                    <a href="<?=site_url('students/create');?>" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                                        Register here
                                     </a>
                                 </p>
                             </div>
@@ -288,9 +284,9 @@
     </div>
 
     <script>
-        function togglePassword(fieldId) {
-            const passwordInput = document.getElementById(fieldId);
-            const toggleIcon = document.getElementById(fieldId + '-toggle');
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('password-toggle');
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -304,43 +300,36 @@
         const form = document.querySelector('form');
         const emailInput = form.querySelector('input[name="email"]');
         const passwordInput = form.querySelector('input[name="password"]');
-        const confirmPasswordInput = form.querySelector('input[name="confirm_password"]');
 
         form.addEventListener('submit', function(event) {
             const emailValue = emailInput.value.trim();
             const passwordValue = passwordInput.value.trim();
-            const confirmPasswordValue = confirmPasswordInput.value.trim();
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            let hasError = false;
-
-            // Email validation
             if (!emailPattern.test(emailValue)) {
+                event.preventDefault();
                 showAlert('Invalid Email Format', 'Please enter a valid email address.', 'error');
                 emailInput.focus();
                 emailInput.classList.add('border-red-500');
-                hasError = true;
+                return;
             }
 
-            // Password validation
             if (passwordValue.length < 6) {
+                event.preventDefault();
                 showAlert('Password Too Short', 'Password must be at least 6 characters long.', 'error');
                 passwordInput.focus();
                 passwordInput.classList.add('border-red-500');
-                hasError = true;
+                return;
             }
+        });
 
-            // Confirm password validation
-            if (passwordValue !== confirmPasswordValue) {
-                showAlert('Passwords Do Not Match', 'Please make sure both passwords are identical.', 'error');
-                confirmPasswordInput.focus();
-                confirmPasswordInput.classList.add('border-red-500');
-                hasError = true;
-            }
+        // Remove error styling when user starts typing
+        emailInput.addEventListener('input', function() {
+            this.classList.remove('border-red-500');
+        });
 
-            if (hasError) {
-                event.preventDefault();
-            }
+        passwordInput.addEventListener('input', function() {
+            this.classList.remove('border-red-500');
         });
 
         function showAlert(title, message, type) {
@@ -370,19 +359,6 @@
                 }
             }, 5000);
         }
-
-        // Remove error styling when user starts typing
-        emailInput.addEventListener('input', function() {
-            this.classList.remove('border-red-500');
-        });
-
-        passwordInput.addEventListener('input', function() {
-            this.classList.remove('border-red-500');
-        });
-
-        confirmPasswordInput.addEventListener('input', function() {
-            this.classList.remove('border-red-500');
-        });
 
         // Add floating animation to form inputs on focus
         const inputs = document.querySelectorAll('.form-input');

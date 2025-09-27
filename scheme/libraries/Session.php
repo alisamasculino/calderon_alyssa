@@ -125,7 +125,14 @@ class Session {
 	    ini_set('session.use_strict_mode', 1);
 	    ini_set('session.use_cookies', 1);
 	    ini_set('session.use_only_cookies', 1);
-	    ini_set('session.sid_length', $this->_get_sid_length());
+	    
+	    // session.sid_length and session.sid_bits_per_character are deprecated in PHP 8.4
+	    // PHP 8.4 uses a standardized 32-character hexadecimal session ID by default
+	    if (PHP_VERSION_ID < 80400) {
+	        ini_set('session.sid_length', $this->_get_sid_length());
+	    }
+	    // For PHP 8.4+, no manual session ID configuration is needed
+	    // The framework will use PHP's default secure session ID generation
 
 	    if ( ! empty($this->config['sess_driver']) AND $this->config['sess_driver'] == 'file' ) {
 			require_once 'Session/FileSessionHandler.php';

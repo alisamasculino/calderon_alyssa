@@ -28,8 +28,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * THE SOFTWARE.
  *
  * @package LavaLust
- * @author Ronald M. Marasigan <ronald.marasigan@yahoo.com>
- * @copyright Copyright 2020 (https://ronmarasigan.github.io)
+ * @author Ronald M. Marasigan
+ * @copyright Copyright 2020
  * @since Version 1
  * @link https://lavalust.pinoywap.org
  * @license https://opensource.org/licenses/MIT MIT License
@@ -37,26 +37,17 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 if ( ! function_exists('load_class'))
 {
-	/**
-	 * Class Loader to load all classes
-	 * @param  string $class
-	 * @param  string $directory Class directory
-	 * @param  array $params    Class parameters if present
-	 * @return object
-	 */
 	function &load_class($class, $directory = '', $params = NULL, $object_name = NULL)
 	{
 		$LAVA = Registry::instance();
-		$class_name = ucfirst(strtolower($class)); // Used only as fallback
+		$class_name = ucfirst(strtolower($class)); 
 		$object_name = $object_name !== NULL ? strtolower($object_name) : strtolower($class);
 
-		// Return if already loaded
 		if ($LAVA->get_object($object_name) !== NULL) {
 			$object = $LAVA->get_object($object_name);
 			return $object;
 		}
 
-		// Try to find the class file regardless of case
 		foreach ([APP_DIR, SYSTEM_DIR] as $base_path) {
 			$dir_path = rtrim($base_path . $directory, '/\\') . DIRECTORY_SEPARATOR;
 
@@ -65,7 +56,6 @@ if ( ! function_exists('load_class'))
 					if (strcasecmp($file, $class . '.php') === 0) {
 						require_once $dir_path . $file;
 
-						// Try to find the actual class name
 						$declared = get_declared_classes();
 						$match = NULL;
 						foreach ($declared as $declared_class) {
@@ -96,13 +86,6 @@ if ( ! function_exists('load_class'))
 
 if ( ! function_exists('loaded_class'))
 {
-	/**
-	 * Keeps track of which libraries have been loaded. This function is
-	 * called by the load_class() function above
-	 *
-	 * @param	string
-	 * @return	array
-	 */
 	function &loaded_class($class = '', $object_name = '')
 	{
 		static $_is_loaded = array();
@@ -118,13 +101,6 @@ if ( ! function_exists('loaded_class'))
 
 if ( ! function_exists('show_404'))
 {
-	/**
-	 * 404 Error Not Found
-	 * @param  string $heading
-	 * @param  string $message
-	 * @param  string $template
-	 * @return string
-	 */
 	function show_404($heading = '', $message = '', $template = '')
 	{
 		$errors =& load_class('Errors', 'kernel');
@@ -134,13 +110,6 @@ if ( ! function_exists('show_404'))
 
 if ( ! function_exists('show_error'))
 {
-	/**
-	 * Show error for debugging
-	 * @param  string $heading
-	 * @param  string $message
-	 * @param  string $code
-	 * @return string
-	 */
 	function show_error($heading = '', $message = '', $template = 'error_general', $code = 500)
 	{
 	  	$errors =& load_class('Errors', 'kernel');
@@ -150,10 +119,6 @@ if ( ! function_exists('show_error'))
 
 if ( ! function_exists('_shutdown_handler'))
 {
-	/**
-	 * For Debugging
-	 * @return string
-	 */
 	function _shutdown_handler()
 	{
 		$last_error = error_get_last();
@@ -167,11 +132,6 @@ if ( ! function_exists('_shutdown_handler'))
 
 if ( ! function_exists('_exception_handler'))
 {
-	/**
-	 * For Debgging
-	 * @param  object $e
-	 * @return string
-	 */
 	function _exception_handler($e)
 	{
 		if(config_item('log_threshold') == 1 || config_item('log_threshold') == 3)
@@ -184,23 +144,13 @@ if ( ! function_exists('_exception_handler'))
 			$exception =& load_class('Errors', 'kernel');
 			$exception->show_exception($e);
 		}
-		
 	}
 }
 
 if ( ! function_exists('_error_handler'))
 {
-	/**
-	 * For Debugging
-	 * @param  string $errno
-	 * @param  string $errstr
-	 * @param  string $errfile
-	 * @param  string $errline
-	 * @return string
-	 */
 	function _error_handler($severity, $errstr, $errfile, $errline)
 	{
-		// Map of PHP error levels
 		$error_levels = [
 			E_ERROR => "E_ERROR",
 			E_WARNING => "E_WARNING",
@@ -213,13 +163,17 @@ if ( ! function_exists('_error_handler'))
 			E_USER_ERROR => "E_USER_ERROR",
 			E_USER_WARNING => "E_USER_WARNING",
 			E_USER_NOTICE => "E_USER_NOTICE",
-			E_STRICT => "E_STRICT",
 			E_RECOVERABLE_ERROR => "E_RECOVERABLE_ERROR",
 			E_DEPRECATED => "E_DEPRECATED",
 			E_USER_DEPRECATED => "E_USER_DEPRECATED",
 		];
 
-		// Convert severity number to string name
+		// Add E_STRICT only if it exists (for older PHP versions)
+		// E_STRICT was deprecated in PHP 8.0 and removed in PHP 8.4
+		if (defined('E_STRICT') && PHP_VERSION_ID < 80000) {
+			$error_levels[E_STRICT] = "E_STRICT";
+		}
+
 		$severity_name = $error_levels[$severity] ?? "UNKNOWN_ERROR";
 
 		if (config_item('log_threshold') == 1 || config_item('log_threshold') == 3) {
@@ -236,11 +190,6 @@ if ( ! function_exists('_error_handler'))
 
 if ( ! function_exists('get_config'))
 {
-	/**
-	 * To access config from config config/config.php
-	 *
-	 * @return void
-	 */
 	function &get_config()
 	{
 		static $config;
@@ -265,19 +214,12 @@ if ( ! function_exists('get_config'))
 
 if ( ! function_exists('config_item'))
 {
-	/**
-	 * Global Function to access config
-	 *
-	 * @param string $item
-	 * @return mixed
-	 */
 	function config_item($item)
 	{
 		static $_config;
 
 		if (empty($_config))
 		{
-			// references cannot be directly assigned to static variables, so we use an array
 			$_config[0] =& get_config();
 		}
 
@@ -287,11 +229,6 @@ if ( ! function_exists('config_item'))
 
 if ( ! function_exists('autoload_config'))
 {
-	/**
-	 * To access config from config config/autoload.php
-	 *
-	 * @return void
-	 */
 	function &autoload_config()
 	{
 		static $autoload;
@@ -316,11 +253,6 @@ if ( ! function_exists('autoload_config'))
 
 if ( ! function_exists('database_config'))
 {
-	/**
-	 * To access config from config config/database.php
-	 *
-	 * @return void
-	 */
 	function &database_config()
 	{
 		static $database;
@@ -345,11 +277,6 @@ if ( ! function_exists('database_config'))
 
 if ( ! function_exists('route_config'))
 {
-	/**
-	 * To access config from config config/routes.php
-	 *
-	 * @return void
-	 */
 	function &route_config()
 	{
 		static $route;
@@ -375,13 +302,6 @@ if ( ! function_exists('route_config'))
 
 if ( ! function_exists('html_escape'))
 {
-	/**
-	 * Returns HTML escaped variable.
-	 *
-	 * @param	mixed	$var		The input string or array of strings to be escaped.
-	 * @param	bool	$double_encode	$double_encode set to FALSE prevents escaping twice.
-	 * @return	mixed			The escaped string or array of strings as a result.
-	 */
 	function html_escape($var, $double_encode = TRUE)
 	{
 		if (empty($var))
@@ -405,12 +325,6 @@ if ( ! function_exists('html_escape'))
 
 if ( ! function_exists('is_php'))
 {
-	/**
-	 * Determines if the current version of PHP is equal to or greater than the supplied value
-	 *
-	 * @param	string
-	 * @return	bool	TRUE if the current version is $version or higher
-	 */
 	function is_php($version)
 	{
 		static $_is_php;
@@ -427,14 +341,6 @@ if ( ! function_exists('is_php'))
 
 if ( ! function_exists('is_https'))
 {
-	/**
-	 * Is HTTPS?
-	 *
-	 * Determines if the application is accessed via an encrypted
-	 * (HTTPS) connection.
-	 *
-	 * @return	bool
-	 */
 	function is_https()
 	{
 		if ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
