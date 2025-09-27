@@ -79,7 +79,7 @@ $config['ENVIRONMENT']             = 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= 'https://localhost:3000/';
+$config['base_url'] 				= 'https://masculino-sofia.onrender.com';
 
 /*
 |--------------------------------------------------------------------------
