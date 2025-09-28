@@ -76,7 +76,7 @@ class StudentController extends Controller {
 
             if($email && $password) {
                 // Find user by email
-                $user = $this->StudentModel->db->table('students')
+                $user = $this->StudentModel->db->table('users')
                     ->where('email', $email)
                     ->get();
                 

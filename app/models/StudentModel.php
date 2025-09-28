@@ -7,7 +7,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * Automatically generated via CLI.
  */
 class StudentModel extends Model {
-    protected $table = 'students';
+    protected $table = 'users';
     protected $primary_key = 'id';
 
     public function __construct()
@@ -19,9 +19,9 @@ class StudentModel extends Model {
      public function page($q = '', $records_per_page = null, $page = null) {
  
             if (is_null($page)) {
-                return $this->db->table('students')->get_all();
+                return $this->db->table('users')->get_all();
             } else {
-                $query = $this->db->table('students');
+                $query = $this->db->table('users');
 
                 // Build LIKE conditions
                 $query->like('id', '%'.$q.'%')
