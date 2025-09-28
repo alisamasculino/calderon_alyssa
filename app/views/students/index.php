@@ -131,85 +131,77 @@
     <div class="absolute bottom-20 right-10 w-16 h-16 rounded-full bg-red-400 opacity-20 floating-icon" style="animation-delay: 1s;"></div>
     <div class="absolute top-1/3 right-1/4 w-12 h-12 rounded-full bg-yellow-400 opacity-20 floating-icon" style="animation-delay: 2s;"></div>
     
-    <div id="app" class="relative w-full max-w-4xl mx-auto rounded-2xl glass-effect p-6 md:p-8">
+    <div id="app" class="relative w-full max-w-3xl mx-auto rounded-2xl glass-effect p-4 md:p-6">
         <!-- Header Section -->
-        <header class="text-center py-8 mb-8">
-            <div class="flex justify-center items-center gap-4 mb-6">
-                <div class="p-4 rounded-full bg-white bg-opacity-20">
-                    <i class="fas fa-graduation-cap text-4xl text-white"></i>
+        <header class="text-center py-4 mb-4">
+            <div class="flex justify-center items-center gap-3 mb-3">
+                <div class="p-2 rounded-full bg-white bg-opacity-20">
+                    <i class="fas fa-graduation-cap text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-4xl md:text-5xl font-bold text-white drop-shadow-md">Student Records</h1>
-                    <p class="text-white text-opacity-80 text-lg">Management System</p>
+                    <h1 class="text-2xl md:text-3xl font-bold text-white drop-shadow-md">Student Records</h1>
+                    <p class="text-white text-opacity-80 text-sm">Management System</p>
                 </div>
             </div>
-            <p class="text-white text-opacity-90 text-lg max-w-2xl mx-auto">
-                Welcome to the Student Records Management System. Please choose an option to continue.
+            <p class="text-white text-opacity-90 text-sm max-w-xl mx-auto">
+                Choose an option to continue
             </p>
         </header>
 
         <!-- Authentication Options -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <!-- Login Option -->
-            <div class="auth-card p-8 text-center auth-option" onclick="selectAuth('login')" id="login-option">
-                <div class="mb-6">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mb-4">
-                        <i class="fas fa-sign-in-alt text-3xl text-white"></i>
+            <div class="auth-card p-4 text-center auth-option" onclick="selectAuth('login')" id="login-option">
+                <div class="mb-3">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mb-2">
+                        <i class="fas fa-sign-in-alt text-lg text-white"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Login</h3>
-                    <p class="text-gray-600">Access your existing account to manage student records</p>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Login</h3>
+                    <p class="text-gray-600 text-sm">Access your existing account</p>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-1">
                     <div class="text-left">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span class="text-sm text-gray-600">View student records</span>
+                        <i class="fas fa-check text-green-500 mr-1 text-xs"></i>
+                        <span class="text-xs text-gray-600">View records</span>
                     </div>
                     <div class="text-left">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span class="text-sm text-gray-600">Edit student information</span>
-                    </div>
-                    <div class="text-left">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span class="text-sm text-gray-600">Manage system data</span>
+                        <i class="fas fa-check text-green-500 mr-1 text-xs"></i>
+                        <span class="text-xs text-gray-600">Edit information</span>
                     </div>
                 </div>
             </div>
 
             <!-- Register Option -->
-            <div class="auth-card p-8 text-center auth-option" onclick="selectAuth('register')" id="register-option">
-                <div class="mb-6">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-r from-green-500 to-teal-600 flex items-center justify-center mb-4">
-                        <i class="fas fa-user-plus text-3xl text-white"></i>
+            <div class="auth-card p-4 text-center auth-option" onclick="selectAuth('register')" id="register-option">
+                <div class="mb-3">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-r from-green-500 to-teal-600 flex items-center justify-center mb-2">
+                        <i class="fas fa-user-plus text-lg text-white"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Register</h3>
-                    <p class="text-gray-600">Create a new account to get started</p>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Register</h3>
+                    <p class="text-gray-600 text-sm">Create a new account</p>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-1">
                     <div class="text-left">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span class="text-sm text-gray-600">Create new account</span>
+                        <i class="fas fa-check text-green-500 mr-1 text-xs"></i>
+                        <span class="text-xs text-gray-600">Create account</span>
                     </div>
                     <div class="text-left">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span class="text-sm text-gray-600">Access all features</span>
-                    </div>
-                    <div class="text-left">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span class="text-sm text-gray-600">Start managing records</span>
+                        <i class="fas fa-check text-green-500 mr-1 text-xs"></i>
+                        <span class="text-xs text-gray-600">Access features</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Action Buttons -->
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+        <div class="flex flex-col sm:flex-row justify-center gap-3 mb-4">
             <button id="login-btn" onclick="proceedToLogin()" 
-                class="hidden flex items-center justify-center gap-2 px-8 py-4 rounded-xl btn-primary text-white font-semibold text-lg shadow-lg">
+                class="hidden flex items-center justify-center gap-2 px-6 py-2 rounded-xl btn-primary text-white font-semibold text-sm shadow-lg">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Proceed to Login</span>
             </button>
             <button id="register-btn" onclick="proceedToRegister()" 
-                class="hidden flex items-center justify-center gap-2 px-8 py-4 rounded-xl btn-secondary text-white font-semibold text-lg shadow-lg">
+                class="hidden flex items-center justify-center gap-2 px-6 py-2 rounded-xl btn-secondary text-white font-semibold text-sm shadow-lg">
                 <i class="fas fa-user-plus"></i>
                 <span>Proceed to Register</span>
             </button>
@@ -217,17 +209,17 @@
 
         <!-- System Info -->
         <div class="text-center">
-            <div class="inline-flex items-center gap-2 bg-white bg-opacity-20 rounded-full px-6 py-3">
-                <i class="fas fa-shield-alt text-green-400"></i>
-                <span class="text-white text-sm font-medium">Secure & Reliable Student Management</span>
+            <div class="inline-flex items-center gap-2 bg-white bg-opacity-20 rounded-full px-4 py-2">
+                <i class="fas fa-shield-alt text-green-400 text-sm"></i>
+                <span class="text-white text-xs font-medium">Secure & Reliable</span>
             </div>
         </div>
         
         <!-- Footer -->
-        <footer class="text-center text-white text-opacity-70 py-6 mt-8 border-t border-white border-opacity-20">
-            <p class="flex items-center justify-center gap-2">
+        <footer class="text-center text-white text-opacity-70 py-3 mt-4 border-t border-white border-opacity-20">
+            <p class="flex items-center justify-center gap-2 text-xs">
                 <i class="fas fa-heart text-red-400"></i>
-                <span>© 2023 Student Records Management System | BSIT 3F2 - Mindoro State University</span>
+                <span>© 2023 Student Records Management System</span>
             </p>
         </footer>
     </div>

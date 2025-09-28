@@ -19,7 +19,6 @@ class StudentController extends Controller {
 
     public function index()
     {
-        // Show authentication page (login/register options)
         $this->call->view('students/index');
     }
 
